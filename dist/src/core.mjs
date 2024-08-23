@@ -67,8 +67,7 @@ export default class Core {
     static textureLayerIndex = 1;
     onCanvasReady() {
         if (this.strategistEnabled) {
-            let textureBuilder = new TextureBuilder();
-            let texture = textureBuilder.buildTexture(canvas.dimensions, 0);
+            let texture = TextureBuilder.buildTexture(canvas.dimensions, 0, {});
             this.textureLayerParent.addChildAt(this.textureLayer, Core.textureLayerIndex);
             this.textureLayer.draw(texture);
         }

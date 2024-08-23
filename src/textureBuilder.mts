@@ -1,29 +1,32 @@
-export default class TextureBuilder {
-    constructor() {
+export default abstract class TextureBuilder {
+    public static DefaultColor = "0x000000";
 
-    }
-
-    public buildTexture(dimensions: SceneDimensions, gridType: number): PIXI.RenderTexture {
+    /**
+     * 
+     * @param dimensions The dimensions of the scene this texture is created for. Note that it is the width of the grid and not the playing field.
+     * @param gridType 
+     * @param data The builder only care about colours. Therefore we provide an object with this format: property x_y_ where _ are the coordinates. So the top left hex would be x0y0.
+     * If a coordinate property does not exist the default colour is used
+     */
+    public static buildTexture(dimensions: SceneDimensions, gridType: number, data: Object): PIXI.RenderTexture {
         const container = new PIXI.Container();
         
         // the size property is the diametre, but we need radius
         let innerRadius = dimensions.size / 2;
-
-        let redHex = this.createHexagonTemplate(innerRadius, 0xff0000, "laying");
-        let greenHex = this.createHexagonTemplate(innerRadius, 0x00ff00, "laying");
-        let blueHex = this.createHexagonTemplate(innerRadius, 0x0000ff, "laying");
-
         let rowStep = this.getOuterRadius(innerRadius) * 1.5
+        let templateRecord = {};
 
-        for (let row = 0; row < dimensions.rows; row++) {
-            for (let col = 0; col < dimensions.columns; col++) {
-                const r = Math.random();
-                let tex = r <= 0.33 ? redHex : r <= 0.66 ? greenHex : blueHex;
+        for (let y = 0; y < dimensions.rows; y++) {
+            for (let x = 0; x < dimensions.columns; x++) {
+                let key = "x" + x + "y" + y;
+                let color = data[key] ?? this.DefaultColor;
 
-                const hexSprite = PIXI.Sprite.from(tex);
-                let indent = row % 2 === 0 ? 0 : innerRadius;
-                hexSprite.position.x = col * dimensions.size + indent;
-                hexSprite.position.y = row * rowStep;
+                let template: PIXI.RenderTexture = templateRecord[color] || (templateRecord[color] = this.createHexagonTemplate(innerRadius, color, "laying"));
+                let hexSprite = PIXI.Sprite.from(template);
+                let indent = y % 2 === 0 ? 0 : innerRadius;
+
+                hexSprite.position.x = x * dimensions.size + indent;
+                hexSprite.position.y = y * rowStep;
 
                 container.addChild(hexSprite);
             }
@@ -32,7 +35,7 @@ export default class TextureBuilder {
         return canvas.app.renderer.generateTexture(container);
     }
     
-    private createHexagonTemplate(innerRadius: number, color: PIXI.ColorSource, orientation: "laying" | "standing"): PIXI.RenderTexture {
+    private static createHexagonTemplate(innerRadius: number, color: PIXI.ColorSource, orientation: "laying" | "standing"): PIXI.RenderTexture {
         const outerRadius = this.getOuterRadius(innerRadius);
         const graphics = new PIXI.Graphics();
         graphics.beginFill(color, 1)
@@ -48,7 +51,17 @@ export default class TextureBuilder {
         return canvas.app.renderer.generateTexture(graphics, {resolution: 2});
     }
 
-    private getOuterRadius(innerRadius: number): number {
-        return innerRadius / 0.866025404;
+    /**
+     * sqrt(3) / 2
+     * The relationship between inner radius (sides) and outer radius (vertices) of a hexagon
+     */
+    private static magicRation = 0.866025404;
+
+    private static getOuterRadius(innerRadius: number): number {
+        return innerRadius / this.magicRation;
     } 
+
+    private static getInnerRadius(outerRadius: number): number {
+        return outerRadius * this.magicRation;
+    }
 }
