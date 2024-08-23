@@ -14,7 +14,8 @@ export default class TextureBuilder {
                 const r = Math.random();
                 let tex = r <= 0.33 ? redHex : r <= 0.66 ? greenHex : blueHex;
                 const hexSprite = PIXI.Sprite.from(tex);
-                hexSprite.position.x = (col + row * 0.5 - col / 2) * (innerRadius * 2);
+                let indent = row % 2 === 0 ? 0 : innerRadius;
+                hexSprite.position.x = col * dimensions.size + indent;
                 hexSprite.position.y = row * rowStep;
                 container.addChild(hexSprite);
             }
@@ -33,7 +34,7 @@ export default class TextureBuilder {
         graphics.lineTo(-innerRadius, 0.5 * outerRadius);
         graphics.lineTo(0, outerRadius);
         graphics.endFill();
-        return canvas.app.renderer.generateTexture(graphics);
+        return canvas.app.renderer.generateTexture(graphics, { resolution: 2 });
     }
     getOuterRadius(innerRadius) {
         return innerRadius / 0.866025404;

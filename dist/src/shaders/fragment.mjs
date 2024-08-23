@@ -1,4 +1,4 @@
-const FragmentShader = `
+export const FragmentShader = `
   precision mediump float;
   varying vec2 vTextureCoord;
   uniform sampler2D uSampler;
@@ -20,4 +20,3 @@ const FragmentShader = `
 
     gl_FragColor = vec4(current.rgb, alpha);
   }`;
-export {};

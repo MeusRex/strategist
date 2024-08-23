@@ -24,12 +24,13 @@ declare global {
         all(): T[];
     }
     
-    
+    declare const socketlib: any;
     
     declare const strategist: {
         core: Core;
     }
     
+    declare const CONFIG: any;
 }
 
 

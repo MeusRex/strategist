@@ -1,12 +1,18 @@
 import Core from "./core.mjs";
-const ModuleId = "strategist";
+import StrategistLayer from "./strategistLayer.mjs";
+export const ModuleId = "strategist";
 Hooks.once("init", () => {
     //@ts-ignore
     globalThis.strategist = game.modules.get(ModuleId);
 });
 Hooks.once("setup", () => {
+    if (!CONFIG.Canvas.layers.strategist) {
+        CONFIG.Canvas.layers.strategist = { layerClass: StrategistLayer, group: "interface" };
+    }
     strategist.core = new Core();
 });
 Hooks.on("canvasReady", () => strategist.core.onCanvasReady());
 Hooks.on("canvasTearDown", () => strategist.core.onCanvasTearDown());
 Hooks.on("canvasInit", () => strategist.core.onCanvasInit());
+Hooks.on("getSceneControlButtons", (ui) => strategist.core.setupUI(ui));
+Hooks.on("updateScene", (document, change) => strategist.core.update(document, change));

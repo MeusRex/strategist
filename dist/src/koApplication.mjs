@@ -45,4 +45,7 @@ export default class KoApplication extends Application {
     register = null;
     unregister = null;
     mlKey = null;
+    static get basePath() {
+        return "modules/strategist/dist/src/ui/templates/";
+    }
 }

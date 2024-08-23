@@ -1,4 +1,4 @@
-const AntialiasingProg = `
+export const AntialiasingShader = `
 precision mediump float;
 uniform sampler2D uSampler;
 uniform vec2 uResolution;
@@ -19,4 +19,3 @@ void main() {
     // Output the averaged color
     gl_FragColor = avgColor;
 }`;
-export {};

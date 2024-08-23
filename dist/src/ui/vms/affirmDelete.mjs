@@ -1,0 +1,27 @@
+import DataManager from "../../dataManager.mjs";
+import KoApplication from "../../koApplication.mjs";
+export default class AffirmDelete extends KoApplication {
+    constructor(scene) {
+        super();
+        this.scene = scene;
+    }
+    scene;
+    static get defaultOptions() {
+        return foundry.utils.mergeObject(super.defaultOptions, {
+            id: "strategist:AffirmDelete",
+            template: KoApplication.basePath + "affirmDelete.html",
+            width: 240,
+            height: "auto",
+            popOut: true,
+            closeOnSubmit: true,
+            title: "Delete Strategist Scene Data?"
+        });
+    }
+    delete() {
+        DataManager.clear(this.scene);
+        super.close(undefined);
+    }
+    cancel() {
+        super.close(undefined);
+    }
+}
