@@ -1,9 +1,9 @@
-import { title } from "process";
 import { ModuleId } from "./startup.mjs";
 import TextureBuilder from "./textureBuilder.mjs";
 import TextureLayer from "./textureLayer.mjs";
 import DataManager from "./dataManager.mjs";
 import AffirmDelete from "./ui/vms/affirmDelete.mjs";
+import StrategistSceneSettings from "./ui/vms/strategistSceneSettings.mjs";
 
 export default class Core {
     private textureLayer: TextureLayer = new TextureLayer();
@@ -24,15 +24,25 @@ export default class Core {
                     title: "Enable Strategist",
                     icon: "fa-solid fa-chart-area",
                     toggle: true,
-                    active: false,
+                    active: this.strategistEnabled,
                     onClick: async () => this.enable()
                 },
                 {
                     name: "toggleOverlay",
                     title: "Toggle Overlay",
-                    icon: "fa-solid fa-cog",
+                    icon: "fa-solid fa-eye",
                     toggle: true,
+                    active: this.uiVisible,
                     onClick: async () => this.toggleOverlay()
+                },
+                {
+                    name: "settings",
+                    title: "Scene Settings",
+                    icon: "fa-solid fa-cog",
+                    onClick: async () => {
+                        if (!strategist.settings)
+                            new StrategistSceneSettings(this.currentScene).render(true);
+                    }
                 }
             ]
         }
@@ -53,6 +63,8 @@ export default class Core {
     }
 
     get strategistEnabled() {
+        if (!this.currentScene)
+            return false;
         return DataManager.isEnabled(this.currentScene);
     }
 

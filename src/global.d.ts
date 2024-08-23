@@ -1,4 +1,6 @@
 import * as PIXI from "pixi.js";
+import StrategistSceneSettings from "./ui/vms/strategistSceneSettings.mts";
+import Core from "./core.mts";
 
 declare global {
     declare const canvas: any;
@@ -28,6 +30,7 @@ declare global {
     
     declare const strategist: {
         core: Core;
+        settings: StrategistSceneSettings | null;
     }
     
     declare const CONFIG: any;

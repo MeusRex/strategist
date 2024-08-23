@@ -159,7 +159,6 @@ declare class FilePicker extends Application<FilePickerOptions> {
 
     /** Handle file upload */
     protected _onUpload(ev: Event): Promise<void>;
-
     /* -------------------------------------------- */
     /*  Factory Methods                             */
     /* -------------------------------------------- */

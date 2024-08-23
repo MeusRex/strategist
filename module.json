@@ -18,5 +18,8 @@
   "scripts": [
     "dist/src/lib/knockout.js",
     "dist/src/lib/knockout.mapping.js"
+  ],
+  "styles": [
+    "src/styles/strategist.css"
   ]
 }

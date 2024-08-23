@@ -21,29 +21,37 @@ export default class KoApplication extends Application {
         this.setPosition({height: "auto"});
     }
 
-    knockify(origin: any[], target: ko.ObservableArray) {
+    knockifyMany(origin: any[], target: ko.ObservableArray) {
       if (!origin)
         origin = [];
 
         origin.forEach(o => {
-          target.push(window.ko.mapping.fromJS(o));
+          target.push(this.knockify(o));
         });
       }
+
+    knockify(obj: any) {
+      return window.ko.mapping.fromJS(obj);
+    }
     
-    deknockify(origin: any[]): any[] {
+    deknockifyMany(origin: any[]): any[] {
       if (!origin)
         origin = [];
 
         const arr: any[] = [];
         origin.forEach(o => {
-          arr.push(window.ko.mapping.toJS(o));
+          arr.push(this.deknockify(o));
         });
 
         return arr;
     }
 
-    deknockifyAndZip(origin: any[]): object {
-        return this.zip(this.deknockify(origin));
+    deknockify(obj: any) {
+      return window.ko.mapping.toJS(obj);
+    }
+
+    deknockifyManyAndZip(origin: any[]): object {
+        return this.zip(this.deknockifyMany(origin));
     }
 
     zip(array: any[]): { [key: string]: any} {

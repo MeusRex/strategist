@@ -1,3 +1,4 @@
+import { ModuleId } from "../../startup.mjs";
 import DataManager from "../../dataManager.mjs";
 import KoApplication from "../../koApplication.mjs";
 
@@ -12,6 +13,7 @@ export default class AffirmDelete extends KoApplication {
     static override get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             id: "strategist:AffirmDelete",
+            classes: [ModuleId],
             template: KoApplication.basePath + "affirmDelete.html",
             width: 240,
             height: "auto",

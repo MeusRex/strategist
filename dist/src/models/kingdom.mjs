@@ -2,7 +2,7 @@ export default class Kingdom {
     // cells claimed by this kingdom
     cells = [];
     // display name of the kingdom
-    name = "";
+    name = foundry.utils.randomID();
     // the id of a journal entry linked to this kingdom
     journal = "";
     // color on the map

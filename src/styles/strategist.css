@@ -1,0 +1,51 @@
+.strategist .settings {
+  padding: 20px;
+}
+.strategist .button-row {
+  margin-bottom: 20px;
+}
+.strategist .cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Space between cards */
+}
+.strategist .card {
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  background-color: #f9f9f9;
+}
+.strategist .card img {
+  display: block;
+  margin: 0 auto 10px auto;
+}
+.strategist .card-details {
+  margin-bottom: 10px;
+}
+.strategist .card-details label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.strategist .card-details input {
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.strategist .add-new-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  border: 2px dashed #ccc;
+  cursor: pointer;
+}
+.strategist .plus-button {
+  font-size: 48px;
+  font-weight: bold;
+  color: #555;
+}/*# sourceMappingURL=strategist.css.map */
