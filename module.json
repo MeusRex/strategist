@@ -1,0 +1,22 @@
+{
+  "id": "strategist",
+  "title": "Strategist",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12"
+  },
+  "authors": [
+    {
+      "name": "cedi",
+      "flags": {}
+    }
+  ],
+  "esmodules": [
+    "dist/src/startup.mjs"
+  ],
+  "scripts": [
+    "dist/src/lib/knockout.js",
+    "dist/src/lib/knockout.mapping.js"
+  ]
+}

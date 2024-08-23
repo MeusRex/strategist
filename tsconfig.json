@@ -1,0 +1,50 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "lib": [
+            "ESNext",
+            "DOM",
+            "DOM.Iterable"
+        ],
+        "types": [],
+        "typeRoots": [
+            "node_modules/@types",
+            "types/foundry"
+        ],
+        "paths": {
+            "knockout": ["scripts/src/lib/knockout.js", "scripts/src/lib/knockout.d.ts"]
+        },
+        "noEmit": false,
+        "strict": true,
+        "noImplicitAny": false,
+        "noFallthroughCasesInSwitch": true,
+        "skipLibCheck": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": false,
+        "noUnusedParameters": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "sourceMap": false,
+        "isolatedModules": true,
+        "baseUrl": ".",
+        "rootDir": ".",
+        "outDir": "./dist",
+        "allowUnusedLabels": false,
+        "removeComments": false,
+        "resolveJsonModule": true,
+        "useDefineForClassFields": true,
+        "noErrorTruncation": true,
+        "declaration": false,
+        "declarationMap": false,
+        "emitDeclarationOnly": false,
+    },
+    "watchOptions": {
+        "excludeDirectories": [
+            "packs/",
+            "static/packs/"
+        ]
+    }
+}
