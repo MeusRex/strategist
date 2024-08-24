@@ -1,14 +1,17 @@
 <div class="strategist settings">
     <div class="button-row">
-        <button data-bind="click: () => activeTab('terrain')">Terrain</button>
-        <button data-bind="click: () => activeTab('kingdom')">Kingdom</button>
+        <button data-bind="click: () => activeTab('terrain'), css: { 'active-button': activeTab() === 'terrain'}">Terrain</button>
+        <button data-bind="click: () => activeTab('kingdom'), css: { 'active-button': activeTab() === 'kingdom'}">Kingdom</button>
+        <button data-bind="click: () => save()">Save</button>
     </div>
 
     <div class="cards-container">
-        <!-- Loop through terrains and display each as a card -->
+
+        <!-- ko if: activeTab() == 'terrain' -->
         <!-- ko foreach: terrains -->
         <div class="card">
-            <img data-bind="attr: { src: img }" width="200" height="200" />
+            <button class="delete-button" data-bind="click: () => $root.delete($root.terrains, $data)">x</button>
+            <img data-bind="attr: { src: img }, click: $root.pickIcon" width="200" height="200" />
             <div class="card-details">
                 <label>Name:</label>
                 <input type="text" data-bind="value: name" />
@@ -23,9 +26,35 @@
             </div>
         </div>
         <!-- /ko -->
+        <!-- /ko -->
 
+        <!-- ko if: activeTab() == 'kingdom' -->
+        <!-- ko foreach: kingdoms -->
+        <div class="card" data-bind="event: { dragover: $root.onDragOver, drop: $root.onDrop }">
+            <button class="delete-button" data-bind="click: () => $root.delete($root.kingdoms, $data)">x</button>
+            <img data-bind="attr: { src: img }, click: $root.pickIcon" width="200" height="200" />
+            <div class="card-details">
+                <label>Name:</label>
+                <input type="text" data-bind="value: name"/>
+            </div>
+            <div class="card-details">
+                <label>Journal:</label>
+                <input type="text" data-bind="value: journal"/>
+            </div>
+            <div class="card-details">
+                <label>Box:</label>
+                <input type="text" data-bind="value: box"/>
+            </div>
+            <div class="card-details">
+                <label>Color:</label>
+                <input type="color" data-bind="value: color"/>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- /ko -->
+        
         <!-- Add the "plus" button as the last card -->
-        <div class="card add-new-card" data-bind="click: () => add('terrain')">
+        <div class="card add-new-card" data-bind="click: () => add()">
             <div class="plus-button">
                 <span>+</span>
             </div>

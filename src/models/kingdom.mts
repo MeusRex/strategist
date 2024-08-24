@@ -1,3 +1,5 @@
+import { FallbackImage } from "../startup.mjs";
+
 export default class Kingdom {
     // cells claimed by this kingdom
     public cells: Point[] = [];
@@ -8,7 +10,7 @@ export default class Kingdom {
     // color on the map
     public color: string = "0xff0000";
     // image of the kingdom
-    public img: string = "";
+    public img: string = FallbackImage;
     // id of an entity with inventory. Used as a storage for resources and stuff
     public box: string = "";
 }

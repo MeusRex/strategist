@@ -1,3 +1,5 @@
+import { FallbackImage } from "../startup.mjs";
+
 export default class Terrain {
     // x/y of cells that belong to this terrain
     public cells: Point[] = [];
@@ -10,5 +12,5 @@ export default class Terrain {
     // color of the map tile
     public color: string = "0x00ff00";
     // file path for the image shown in the UI
-    public img: string = "";
+    public img: string = FallbackImage;
 }

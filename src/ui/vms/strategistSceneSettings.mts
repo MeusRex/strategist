@@ -10,7 +10,7 @@ export default class StrategistSceneSettings extends KoApplication {
             id: "strategist:scenesettings",
             classes: [strategist],
             template: this.basePath + "strategistSceneSettings.html",
-            width: 800,
+            width: 16 + 220 * 4 + 20 * 3, // 16 margin, 220 width of card, 20 gap -> 4 cards per row
             height: 1200,
             popOut: true,
             closeOnSubmit: true,
@@ -42,8 +42,8 @@ export default class StrategistSceneSettings extends KoApplication {
         DataManager.save(this.scene, DataType.Kingdom, this.deknockifyMany(this.kingdoms()));
     }
 
-    add(type: string) {
-        switch (type) {
+    add() {
+        switch (this.activeTab()) {
             case "terrain":
                 this.terrains.push(this.knockify(new Terrain()));
                 break;
@@ -66,8 +66,37 @@ export default class StrategistSceneSettings extends KoApplication {
         const filePicker = new FilePicker();
         // @ts-ignore
         filePicker.callback = (path: string) => {
-          object.img(path);
+            object.img(path);
         };
         filePicker.render(true);
-      }
+    }
+
+    // data is the knockified object
+    onDrop(data, event) {
+        let payload = JSON.parse(event.originalEvent.dataTransfer.getData("text/plain"))
+        if (!payload.type || !payload.uuid)
+            return;
+
+        let id = payload.uuid.split('.')[1];
+
+        switch (payload.type) {
+            case "JournalEntry": 
+                data.journal(id);
+                break;
+
+            case "Actor":
+                data.box(id);
+                break;
+        }
+
+        event.preventDefault();
+    }
+
+    onDragOver(data, event) {
+        // could prettify it a bit with proper drag drop indicators
+        // for now, it's a stub
+        event.preventDefault();
+    }
+
+
 }

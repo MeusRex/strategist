@@ -3,6 +3,7 @@ import StrategistLayer from "./strategistLayer.mjs";
 import DataManager from "./dataManager.mjs";
 
 export const ModuleId = "strategist";
+export const FallbackImage = "icons/sundries/flags/banner-flag-pirate.webp";
 
 Hooks.once("init", () => {
     //@ts-ignore
